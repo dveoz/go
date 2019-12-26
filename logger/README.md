@@ -6,7 +6,7 @@ Logger for GoLang applications with support of log levels and file output. It ca
 To import it into the project just include it into import section:
 
 ```go
-import "github.com/dveoz/gologger"
+import "github.com/dveoz/go/logger"
 ```
 
 and initiate it in your main func:
@@ -19,7 +19,7 @@ logger.SetLogger("DEBUG", "application.log", "logs")
 That's all after that you can start using it. Here are some examples for all levels:
 
 ```go
-logger.INFO("HTTPS Server started on port - %v", serverPort)
+logger.Info("HTTPS Server started on port - %v", serverPort)
 ```
 
 will print out into both - file and `stdout` the following message:
