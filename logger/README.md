@@ -27,4 +27,3 @@ will print out into both - file and `stdout` the following message:
 ```
 2019/12/24 14:53:34.346930 Server.go:37: [INFO   ] HTTPS Server started on port - 9000
 ```
-
