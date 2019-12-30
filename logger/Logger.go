@@ -33,8 +33,13 @@ func init() {
 	defaultLogger = new(Logger)
 }
 
-func Error(vars ...interface{}) {
+func setLogData() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+	log.SetOutput(defaultLogger.out)
+}
+
+func Error(vars ...interface{}) {
+	setLogData()
 	if defaultLogger.level <= ERROR {
 		message := fmt.Sprintf("[ERROR  ] %v", vars...)
 		_ = log.Output(2, message)
@@ -42,7 +47,7 @@ func Error(vars ...interface{}) {
 }
 
 func Info(format string, vars ...interface{}) {
-	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+	setLogData()
 	if defaultLogger.level <= INFO {
 		message := fmt.Sprintf("[INFO   ] "+format, vars...)
 		_ = log.Output(2, message)
@@ -50,7 +55,7 @@ func Info(format string, vars ...interface{}) {
 }
 
 func Debug(vars ...interface{}) {
-	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+	setLogData()
 	if defaultLogger.level <= DEBUG {
 		message := fmt.Sprintf("[DEBUG  ] %v", vars...)
 		_ = log.Output(2, message)
@@ -58,7 +63,7 @@ func Debug(vars ...interface{}) {
 }
 
 func Warning(vars ...interface{}) {
-	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+	setLogData()
 	if defaultLogger.level <= WARNING {
 		message := fmt.Sprintf("[WARNING] %v", vars...)
 		_ = log.Output(2, message)
@@ -75,7 +80,8 @@ func SetLogger(level interface{}, logfile string, logpath string) {
 		}
 		defer logFile.Close()
 		multiWriter := io.MultiWriter(os.Stdout, logFile)
-		log.SetOutput(multiWriter)
+		defaultLogger.out = multiWriter
+		log.SetOutput(defaultLogger.out)
 	}
 
 	if reflect.TypeOf(level).String() == "int" {
