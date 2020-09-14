@@ -13,8 +13,16 @@ and initiate it in your main func:
 
 ```go
 // set log level for all other packages
-logger.SetLogger("DEBUG", "application.log", "logs")
+logger.SetLogger("DEBUG")
 ```
+
+By initiating you will set up logging subsystem ready to send messages to STDOUT only. If that is not enough
+you may want to connect file handler by using another function:
+```go
+// in adddition attach the file handler
+logger.SetFileHandler("logs/application.log")
+```
+Please note that path, sending as a parameter, is **relative** to your working directory.
 
 That's all after that you can start using it. Here are some examples for all levels:
 
