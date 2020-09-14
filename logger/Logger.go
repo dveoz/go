@@ -77,7 +77,6 @@ func SetLogger(level interface{}, logfile string, logpath string) {
 		if err != nil {
 			Error("Error opening file: %v", err)
 		}
-		defer logFile.Close()
 		multiWriter := io.MultiWriter(os.Stdout, logFile)
 		defaultLogger.out = multiWriter
 		log.SetOutput(defaultLogger.out)
@@ -89,7 +88,7 @@ func SetLogger(level interface{}, logfile string, logpath string) {
 		switch level.(string) {
 		case strings.ToUpper("debug"):
 			defaultLogger.level = 1
-			Debug("Current logger level set to: DEBUG")
+			Info("Current logger level set to: DEBUG")
 		case strings.ToUpper("info"):
 			defaultLogger.level = 2
 			Info("Current logger level set to: INFO")
