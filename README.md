@@ -1,2 +1,0 @@
-# Go
-now supports workflow
