@@ -6,7 +6,7 @@ Logger for GoLang applications with support of log levels and file output. It ca
 To import it into the project just include it into import section:
 
 ```go
-import "github.com/dveoz/go/logger"
+import "github.com/dveoz/go/logger/v2"
 ```
 
 and initiate it in your main func:
