@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// Define your custom logger type.
+// Logger define your custom logger type.
 type Logger struct {
 	out      io.Writer // destination for output
 	level    int
@@ -52,7 +52,7 @@ func Error(vars ...interface{}) {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
 	log.SetOutput(defaultLogger.out)
 	if defaultLogger.level <= ERROR {
-		logMessage(fmt.Sprintf("[ERROR] %v", vars...))
+		logMessage(fmt.Sprintf("[ERROR] ", vars...))
 	}
 }
 
@@ -60,7 +60,7 @@ func Info(vars ...interface{}) {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
 	log.SetOutput(defaultLogger.out)
 	if defaultLogger.level <= INFO {
-		logMessage(fmt.Sprintf("[INFO] %v", vars...))
+		logMessage(fmt.Sprintf("[INFO] ", vars...))
 	}
 }
 
@@ -68,7 +68,7 @@ func Debug(vars ...interface{}) {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
 	log.SetOutput(defaultLogger.out)
 	if defaultLogger.level <= DEBUG {
-		logMessage(fmt.Sprintf("[DEBUG] %v", vars...))
+		logMessage(fmt.Sprintf("[DEBUG] ", vars...))
 	}
 }
 
@@ -76,7 +76,7 @@ func Warning(vars ...interface{}) {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
 	log.SetOutput(defaultLogger.out)
 	if defaultLogger.level <= WARNING {
-		logMessage(fmt.Sprintf("[WARNING] %v", vars...))
+		logMessage(fmt.Sprintf("[WARNING] ", vars...))
 	}
 }
 
