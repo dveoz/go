@@ -24,7 +24,8 @@ type logHandler struct {
 type outputType int
 
 const (
-	DEBUG = 1 << iota
+	TRACE = 1 << iota
+	DEBUG
 	INFO
 	WARNING
 	ERROR
@@ -80,19 +81,29 @@ func Warning(message string, vars ...interface{}) {
 	}
 }
 
+func Trace(message string, vars ...interface{}) {
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+	log.SetOutput(defaultLogger.out)
+	if defaultLogger.level <= TRACE {
+		logMessage(fmt.Sprintf("[TRACE] "+message, vars...))
+	}
+}
+
 func SetLevel(level interface{}) {
 	if reflect.TypeOf(level).String() == "int" {
 		defaultLogger.level = level.(int)
 	} else if reflect.TypeOf(level).String() == "string" {
 		switch level.(string) {
-		case strings.ToUpper("debug"):
+		case strings.ToUpper("trace"):
 			defaultLogger.level = 1
-		case strings.ToUpper("info"):
+		case strings.ToUpper("debug"):
 			defaultLogger.level = 2
-		case strings.ToUpper("warning"):
+		case strings.ToUpper("info"):
 			defaultLogger.level = 3
-		default:
+		case strings.ToUpper("warning"):
 			defaultLogger.level = 4
+		default:
+			defaultLogger.level = 5
 		}
 	}
 }
@@ -136,17 +147,20 @@ func SetLogger(level interface{}) {
 		defaultLogger.level = level.(int)
 	} else if reflect.TypeOf(level).String() == "string" {
 		switch level.(string) {
-		case strings.ToUpper("debug"):
+		case strings.ToUpper("trace"):
 			defaultLogger.level = 1
+			Info("Current logger level set to: TRACE")
+		case strings.ToUpper("debug"):
+			defaultLogger.level = 2
 			Info("Current logger level set to: DEBUG")
 		case strings.ToUpper("info"):
-			defaultLogger.level = 2
+			defaultLogger.level = 3
 			Info("Current logger level set to: INFO")
 		case strings.ToUpper("warning"):
-			defaultLogger.level = 3
+			defaultLogger.level = 4
 			Info("Current logger level set to: WARNING")
 		default:
-			defaultLogger.level = 4
+			defaultLogger.level = 5
 			Info("Current logger level set to: ERROR")
 		}
 	}
