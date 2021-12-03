@@ -195,5 +195,5 @@ func logMessage(message string) {
 		}
 		defer logFile.Close()
 	}
-	_ = log.Output(2, message)
+	_ = log.Output(3, message)
 }
